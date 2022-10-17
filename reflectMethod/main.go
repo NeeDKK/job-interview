@@ -6,7 +6,7 @@ import (
 )
 
 type People struct {
-	Name string
+	Name string `field:"namePeople"`
 }
 
 func (p *People) Eat() {
@@ -16,4 +16,7 @@ func (p *People) Eat() {
 func main() {
 	of := reflect.ValueOf(&People{})
 	of.MethodByName("Eat").Call([]reflect.Value{})
+	name, _ := reflect.TypeOf(People{}).FieldByName("Name")
+	get := name.Tag.Get("field")
+	fmt.Println(get)
 }
